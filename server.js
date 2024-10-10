@@ -7,6 +7,8 @@ import dotenv from "dotenv";
 
 dotenv.config(); // Load environment variables
 
+import staffRouter from "./routes/Staffs.js";
+
 const app = express();
 const port = 5000;
 
@@ -26,3 +28,7 @@ mongoose
 app.listen(port, () => {
   console.log(`Server is running on port number ${port}`);
 });
+
+//Inventory routes
+app.use("/api/staff", staffRouter);
+
