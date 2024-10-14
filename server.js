@@ -1,5 +1,6 @@
 //server.js
 import AppoinmentRouter from './routes/AppoinmentRouter.js'; 
+import AppointRouter from './routes/AppointRouter.js';
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
@@ -36,8 +37,12 @@ app.listen(port, () => {
 //Inventory routes
 app.use("/api/staff", staffRouter);
 
+//All Appointments
 app.use('/Appointment', AppoinmentRouter);
 
 //Report routes
 app.use('/report', ReportRouter);
+
+//Appoinments user profile 
+app.use('/Appoint', AppointRouter);
 
