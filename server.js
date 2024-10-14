@@ -10,6 +10,10 @@ dotenv.config(); // Load environment variables
 
 import staffRouter from "./routes/Staffs.js";
 
+import ReportRouter from "./routes/reportRouter.js";
+
+
+
 const app = express();
 const port = 5000;
 
@@ -35,6 +39,9 @@ app.use("/api/staff", staffRouter);
 
 //All Appointments
 app.use('/Appointment', AppoinmentRouter);
+
+//Report routes
+app.use('/report', ReportRouter);
 
 //Appoinments user profile 
 app.use('/Appoint', AppointRouter);
