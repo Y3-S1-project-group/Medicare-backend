@@ -1,13 +1,18 @@
+/**
+ * This module defines routes for managing staff members in an Express application.
+ * It includes routes for creating, retrieving, updating, and deleting staff members,
+ * as well as searching staff members by role.
+ */
 
 import express from "express";
 import Staff from "../models/Staff.js";
 
-
-
 const router = express.Router();
 
-
-// Create a new staff member
+/**
+ * Create a new staff member.
+ * This route handles POST requests to "/addStaff" and saves a new staff member to the database.
+ */
 router.route("/addStaff").post(async (req, res) => {
   const { 
     ID, 
@@ -48,7 +53,10 @@ router.route("/addStaff").post(async (req, res) => {
     });
 });
 
-// Get all staff members
+/**
+ * Get all staff members.
+ * This route handles GET requests to "/getAllStaff" and retrieves all staff members from the database.
+ */
 router.route("/getAllStaff").get(async (req, res) => {
   try {
     const staffMembers = await Staff.find();
@@ -59,7 +67,10 @@ router.route("/getAllStaff").get(async (req, res) => {
   }
 });
 
-// Get a single staff member by ID
+/**
+ * Get a single staff member by ID.
+ * This route handles GET requests to "/getStaff/:id" and retrieves a specific staff member by their ID.
+ */
 router.route("/getStaff/:id").get(async (req, res) => {
   try {
     const staffMember = await Staff.findOne({ ID: req.params.id });
@@ -73,7 +84,10 @@ router.route("/getStaff/:id").get(async (req, res) => {
   }
 });
 
-// Update a staff member
+/**
+ * Update a staff member.
+ * This route handles PUT requests to "/updateStaff/:id" and updates a specific staff member's details.
+ */
 router.route("/updateStaff/:id").put(async (req, res) => {
   try {
     const updatedStaff = await Staff.findOneAndUpdate(
@@ -91,7 +105,10 @@ router.route("/updateStaff/:id").put(async (req, res) => {
   }
 });
 
-// Delete a staff member
+/**
+ * Delete a staff member.
+ * This route handles DELETE requests to "/deleteStaff/:id" and deletes a specific staff member from the database.
+ */
 router.route("/deleteStaff/:id").delete(async (req, res) => {
   try {
     const deletedStaff = await Staff.findOneAndDelete({ ID: req.params.id });
@@ -105,7 +122,10 @@ router.route("/deleteStaff/:id").delete(async (req, res) => {
   }
 });
 
-// Search staff members by role
+/**
+ * Search staff members by role.
+ * This route handles GET requests to "/searchStaffByRole" and retrieves staff members matching a specific role.
+ */
 router.get('/searchStaffByRole', async (req, res) => {
   const { role } = req.query; // Get the role from the query parameters
 
@@ -126,6 +146,5 @@ router.get('/searchStaffByRole', async (req, res) => {
       res.status(500).json({ error: error.message }); // Handle errors
   }
 });
-
 
 export default router;
