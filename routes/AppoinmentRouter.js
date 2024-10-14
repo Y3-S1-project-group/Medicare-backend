@@ -1,3 +1,20 @@
+/**
+ * This file defines the routes for managing appointments using Express.js.
+ * 
+ * - It imports the necessary modules: 'express' for routing and 'Appointment' model for database operations.
+ * - It creates an Express router instance to define various endpoints.
+ * 
+ * The following routes are defined:
+ * 
+ * 1. POST /add: Creates a new appointment.
+ * 2. GET /: Retrieves all appointments.
+ * 3. GET /get/:id: Retrieves a specific appointment by its ID.
+ * 4. PUT /update/:id: Updates an existing appointment by its ID.
+ * 5. DELETE /delete/:id: Deletes an appointment by its ID.
+ * 
+ * Each route handler performs the necessary database operations and sends appropriate HTTP responses.
+ */
+
 import express from 'express';
 import Appointment from '../models/Appoinments.js'; // Adjust the path if necessary
 
