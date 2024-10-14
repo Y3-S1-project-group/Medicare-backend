@@ -38,5 +38,6 @@ app.use("/api/staff", staffRouter);
 
 app.use('/Appointment', AppoinmentRouter);
 
+//Report routes
 app.use('/report', ReportRouter);
 

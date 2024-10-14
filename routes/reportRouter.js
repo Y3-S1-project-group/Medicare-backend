@@ -4,7 +4,8 @@ import Appointment from '../models/Appoinments.js';
 const router = express.Router();
 
 
-router.get('/', async (req, res) => {
+// Get all appointments
+router.get('/appointments', async (req, res) => {
     try {
         const appointments = await Appointment.find();
         res.status(200).json(appointments);
