@@ -1,5 +1,5 @@
 //server.js
-
+import AppoinmentRouter from './routes/AppoinmentRouter.js'; 
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
@@ -8,6 +8,10 @@ import dotenv from "dotenv";
 dotenv.config(); // Load environment variables
 
 import staffRouter from "./routes/Staffs.js";
+
+import ReportRouter from "./routes/reportRouter.js";
+
+
 
 const app = express();
 const port = 5000;
@@ -31,4 +35,8 @@ app.listen(port, () => {
 
 //Inventory routes
 app.use("/api/staff", staffRouter);
+
+app.use('/Appointment', AppoinmentRouter);
+
+app.use('/report', ReportRouter);
 
