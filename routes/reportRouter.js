@@ -26,7 +26,7 @@ import Report from '../models/report.js'; // Ensure this path is correct
 const router = express.Router();
 
 // Create a new appointment
-router.post('/appointments', async (req, res) => {
+router.post('/add', async (req, res) => {
     const { fullName, gender, email, doctor, date, time } = req.body;
 
     // Validate required fields
