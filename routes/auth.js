@@ -13,17 +13,17 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { check, validationResult } from 'express-validator';
 import dotenv from 'dotenv';
-import User from '../models/User';
+import User from '../models/User.js';
 
 dotenv.config();
 
 const router = express.Router();
 
 // JWT Secret
-const JWT_SECRET = process.env.JWT_SECRET;
-if (!JWT_SECRET) {
-    throw new Error('JWT_SECRET is not defined in the environment variables');
-}
+// const JWT_SECRET = process.env.JWT_SECRET;
+// if (!JWT_SECRET) {
+//     throw new Error('JWT_SECRET is not defined in the environment variables');
+// }
 
 /**
  * Login Route
