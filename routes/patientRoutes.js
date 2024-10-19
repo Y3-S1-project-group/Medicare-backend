@@ -132,6 +132,7 @@ router.post("/forgot-password", async (req, res) => {
   }
 });
 
+// OTP verification route
 router.post("/verify-otp", async (req, res) => {
   const { hash, otp } = req.body;
 
@@ -177,6 +178,33 @@ router.post("/reset-password", async (req, res) => {
     res
       .status(500)
       .json({ message: "Something went wrong", error: error.message });
+  }
+});
+
+// Get Patient Profile
+router.get("/profile", async (req, res) => {
+  // Extract token from headers
+  const token = req.header('Authorization')?.replace('Bearer ', '');
+  
+  if (!token) {
+    return res.status(401).json({ message: "No token, authorization denied" });
+  }
+
+  try {
+    // Verify token
+    const decoded = jwt.verify(token, JWT_SECRET);
+    
+    // Find patient by the decoded token ID
+    const patient = await Patient.findById(decoded.id).select("-password"); // Exclude the password field
+    
+    if (!patient) {
+      return res.status(404).json({ message: "Patient not found" });
+    }
+
+    res.json(patient); // Return patient details
+  } catch (err) {
+    console.error("Error in profile route:", err.message);
+    res.status(401).json({ message: "Token is not valid" });
   }
 });
 
