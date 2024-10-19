@@ -11,7 +11,7 @@ import AppoinmentRouter from './routes/AppoinmentRouter.js';
 import staffRouter from "./routes/Staffs.js";
 import ReportRouter from "./routes/reportRouter.js";
 import authRoutes from './routes/auth.js';
-import adminRoutes from './routes/adminRoutes.js';
+// import adminRoutes from './routes/adminRoutes.js';
 
 dotenv.config();
 
@@ -33,7 +33,7 @@ app.use("/api/staff", staffRouter);
 app.use('/Appoint', AppoinmentRouter);
 app.use('/report', ReportRouter);
 app.use('/api/auth', authRoutes);
-app.use('/api/admin', adminRoutes);
+// app.use('/api/admin', adminRoutes);
 
 // Start the server
 app.listen(port, () => {
