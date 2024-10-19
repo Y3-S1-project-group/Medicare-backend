@@ -7,8 +7,6 @@ import patientRoutes from "./routes/patientRoutes.js";
 import AppoinmentRouter from './routes/AppoinmentRouter.js';
 import staffRouter from "./routes/Staffs.js";
 import ReportRouter from "./routes/reportRouter.js";
-import authRoutes from './routes/auth.js';
-import adminRoutes from './routes/adminRoutes.js';
 
 dotenv.config();
 
