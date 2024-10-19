@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
-import mongoose from "mongoose";
 import dotenv from "dotenv";
+import db from './config/database.js'; // MongoDB Singleton
 
 import AppoinmentRouter from './routes/AppoinmentRouter.js';
 import staffRouter from "./routes/Staffs.js";
@@ -19,10 +19,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI)
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.error("MongoDB connection error:", err));
+// Initialize the database connection using the Singleton pattern
+db.getInstance();
 
 // Routes
 app.use("/api/staff", staffRouter);
