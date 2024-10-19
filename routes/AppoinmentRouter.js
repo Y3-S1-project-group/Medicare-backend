@@ -23,23 +23,24 @@ const router = express.Router();
 // Create a new appointment
 router.post('/add', async (req, res) => {
   try {
-    const { fullName, gender, email, doctor, date, time } = req.body;
+    const { fullName, email, doctor, date, time } = req.body;
+    
+    // Check for missing required fields
+    if (!fullName || !email || !doctor || !date || !time) {
+      return res.status(400).json({ message: 'Missing required fields' });
+    }
 
-    const newAppointment = new Appointment({
-      fullName,
-      gender,
-      email,
-      doctor,
-      date,
-      time
-    });
-
+    // Proceed with saving the appointment
+    const newAppointment = new Appointment(req.body);
     await newAppointment.save();
-    res.status(201).json({ message: 'Appointment booked successfully', appointment: newAppointment });
+    
+    return res.status(201).json({ message: 'Appointment booked successfully', appointment: newAppointment });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error('Error while creating appointment:', error);
+    res.status(500).json({ message: 'Server error' });
   }
 });
+
 
 // Get all appointments
 router.get('/', async (req, res) => {

@@ -50,6 +50,6 @@ const appointmentSchema = new mongoose.Schema({
 });
 
 // Create the model for appointments
-const Appointment = mongoose.model('Appointment', appointmentSchema);
+const Appointment = mongoose.model('Appoint', appointmentSchema);
 
 export default Appointment;
