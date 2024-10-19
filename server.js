@@ -26,7 +26,7 @@ mongoose.connect(process.env.MONGODB_URI)
 
 // Routes
 app.use("/api/staff", staffRouter);
-app.use('/Appointment', AppoinmentRouter);
+app.use('/Appoint', AppoinmentRouter);
 app.use('/report', ReportRouter);
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
