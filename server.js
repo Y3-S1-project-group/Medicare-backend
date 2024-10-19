@@ -3,11 +3,10 @@ import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 
+import patientRoutes from "./routes/patientRoutes.js";
 import AppoinmentRouter from './routes/AppoinmentRouter.js';
 import staffRouter from "./routes/Staffs.js";
 import ReportRouter from "./routes/reportRouter.js";
-import authRoutes from './routes/auth.js';
-import adminRoutes from './routes/adminRoutes.js';
 
 dotenv.config();
 
@@ -25,11 +24,10 @@ mongoose.connect(process.env.MONGODB_URI)
   .catch((err) => console.error("MongoDB connection error:", err));
 
 // Routes
+app.use("/api/patients", patientRoutes);
 app.use("/api/staff", staffRouter);
 app.use('/Appointment', AppoinmentRouter);
 app.use('/report', ReportRouter);
-app.use('/api/auth', authRoutes);
-app.use('/api/admin', adminRoutes);
 
 // Start the server
 app.listen(port, () => {
