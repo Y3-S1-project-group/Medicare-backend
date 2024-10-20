@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> 2ec7c6bcaace441f0c9ca53bbddd8645371ca6e0
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
