@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
@@ -25,8 +26,9 @@
     "express-validator": "^7.2.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.7.2",
->>>>>>> 9a960f528d07d3ea59364da95b9fa2173a65f5a9
-    "nodemon": "^3.1.7"
+    "nodemailer": "^6.9.15",
+    "nodemon": "^3.1.7",
+    "otp-generator": "^4.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.25.8",
