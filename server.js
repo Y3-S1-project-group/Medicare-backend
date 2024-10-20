@@ -31,14 +31,3 @@ app.use('/report', ReportRouter);
 app.listen(port, () => {
   console.log(`Server is running on port number ${port}`);
 });
-<<<<<<< HEAD
-
-//Inventory routes
-app.use("/api/staff", staffRouter);
-
-
-//Report routes
-app.use('/report', ReportRouter);
-
-=======
->>>>>>> 2ec7c6bcaace441f0c9ca53bbddd8645371ca6e0
