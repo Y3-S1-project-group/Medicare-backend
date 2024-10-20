@@ -4,6 +4,11 @@ import appointmentRouter from '../routes/AppoinmentRouter';
 import mongoose from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 
+// Test Case Summary:
+// Total test cases: 9
+// Positive test cases: 5
+// Negative test cases: 4
+
 const app = express();
 app.use(express.json());
 app.use('/api/appointments', appointmentRouter);
@@ -47,7 +52,9 @@ beforeEach(async () => {
   }
 });
 
+// Test cases: 1 (1 positive, 1 negative)
 describe('Appointment API', () => {
+  // positive: Test if a valid appointment can be created successfully
   it('should create a new appointment', async () => {
     const appointmentData = {
       fullName: 'John Doe',
@@ -62,7 +69,7 @@ describe('Appointment API', () => {
       .post('/api/appointments/add')
       .send(appointmentData);
 
-    expect(response.status).toBe(201);
+    expect(response.status).toBe(201); // Expect success with status code 201
     expect(response.body.message).toBe('Appointment booked successfully');
     expect(response.body.appointment).toMatchObject({
       fullName: appointmentData.fullName,
@@ -70,18 +77,20 @@ describe('Appointment API', () => {
     });
   }, 15000);
 
+  // negative: Test if an appointment fails to create when required fields are missing
   it('should not create an appointment with missing required fields', async () => {
     const response = await request(app)
       .post('/api/appointments/add')
       .send({
         fullName: 'John Doe',
-        // Missing other required fields
+        // Missing other required fields like email, doctor, date, and time
       });
 
-    expect(response.status).toBe(400);
+    expect(response.status).toBe(400); // Expect failure with status code 400
   }, 15000);
 });
 
+// Test cases: 2 (1 positive)
 describe('GET /api/appointments', () => {
   beforeEach(async () => {
     // Add test appointments
@@ -108,14 +117,16 @@ describe('GET /api/appointments', () => {
       });
   });
 
+  // positive: Test if all appointments are retrieved successfully
   it('should retrieve all appointments', async () => {
     const response = await request(app).get('/api/appointments');
-    expect(response.status).toBe(200);
-    expect(Array.isArray(response.body)).toBe(true);
-    expect(response.body.length).toBe(2);
+    expect(response.status).toBe(200); // Expect success with status code 200
+    expect(Array.isArray(response.body)).toBe(true); // Expect an array of appointments
+    expect(response.body.length).toBe(2); // Expect 2 appointments
   }, 15000);
 });
 
+// Test cases: 3 (1 positive, 1 negative)
 describe('GET /api/appointments/get/:id', () => {
   let appointmentId;
 
@@ -133,25 +144,28 @@ describe('GET /api/appointments/get/:id', () => {
     appointmentId = response.body.appointment._id;
   });
 
+  // positive: Test if an appointment is retrieved successfully by ID
   it('should retrieve an appointment by ID', async () => {
     const response = await request(app)
       .get(`/api/appointments/get/${appointmentId}`);
     
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(200); // Expect success with status code 200
     expect(response.body.fullName).toBe('Jane Doe');
     expect(response.body.email).toBe('jane@example.com');
   }, 15000);
 
+  // negative: Test if retrieval fails for a non-existent appointment ID
   it('should return 404 for non-existent appointment ID', async () => {
-    const nonExistentId = new mongoose.Types.ObjectId();
+    const nonExistentId = new mongoose.Types.ObjectId(); // Generate a random ID
     const response = await request(app)
       .get(`/api/appointments/get/${nonExistentId}`);
     
-    expect(response.status).toBe(404);
+    expect(response.status).toBe(404); // Expect failure with status code 404
     expect(response.body.message).toBe('Appointment not found');
   }, 15000);
 });
 
+// Test cases: 4 (1 positive, 1 negative)
 describe('PUT /api/appointments/update/:id', () => {
   let appointmentId;
 
@@ -169,6 +183,7 @@ describe('PUT /api/appointments/update/:id', () => {
     appointmentId = response.body.appointment._id;
   });
 
+  // positive: Test if an appointment is updated successfully
   it('should update an existing appointment', async () => {
     const updatedData = {
       fullName: 'Mark Updated',
@@ -180,23 +195,25 @@ describe('PUT /api/appointments/update/:id', () => {
       .put(`/api/appointments/update/${appointmentId}`)
       .send(updatedData);
 
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(200); // Expect success with status code 200
     expect(response.body.message).toBe('Appointment updated successfully');
     expect(response.body.appointment.fullName).toBe(updatedData.fullName);
     expect(response.body.appointment.email).toBe(updatedData.email);
   }, 15000);
 
+  // negative: Test if update fails for a non-existent appointment ID
   it('should return 404 for updating non-existent appointment', async () => {
-    const nonExistentId = new mongoose.Types.ObjectId();
+    const nonExistentId = new mongoose.Types.ObjectId(); // Generate a random ID
     const response = await request(app)
       .put(`/api/appointments/update/${nonExistentId}`)
       .send({ fullName: 'Updated Name' });
 
-    expect(response.status).toBe(404);
+    expect(response.status).toBe(404); // Expect failure with status code 404
     expect(response.body.message).toBe('Appointment not found');
   }, 15000);
 });
 
+// Test cases: 5 (1 positive, 1 negative)
 describe('DELETE /api/appointments/delete/:id', () => {
   let appointmentId;
 
@@ -214,25 +231,27 @@ describe('DELETE /api/appointments/delete/:id', () => {
     appointmentId = response.body.appointment._id;
   });
 
+  // positive: Test if an appointment is deleted successfully
   it('should delete an existing appointment', async () => {
     const response = await request(app)
       .delete(`/api/appointments/delete/${appointmentId}`);
 
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(200); // Expect success with status code 200
     expect(response.body.message).toBe('Appointment deleted successfully');
 
     // Verify appointment is deleted
     const getResponse = await request(app)
       .get(`/api/appointments/get/${appointmentId}`);
-    expect(getResponse.status).toBe(404);
+    expect(getResponse.status).toBe(404); // Expect failure when trying to retrieve a deleted appointment
   }, 15000);
 
+  // negative: Test if deletion fails for a non-existent appointment ID
   it('should return 404 for deleting non-existent appointment', async () => {
-    const nonExistentId = new mongoose.Types.ObjectId();
+    const nonExistentId = new mongoose.Types.ObjectId(); // Generate a random ID
     const response = await request(app)
       .delete(`/api/appointments/delete/${nonExistentId}`);
 
-    expect(response.status).toBe(404);
+    expect(response.status).toBe(404); // Expect failure with status code 404
     expect(response.body.message).toBe('Appointment not found');
   }, 15000);
 });
