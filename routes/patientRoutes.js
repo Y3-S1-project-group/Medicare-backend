@@ -40,7 +40,6 @@ router.post("/signup", async (req, res) => {
 
     res.status(201).json({ token, message: "Patient registered successfully" });
   } catch (error) {
-    console.error(error.message);
     res.status(500).send("Server error");
   }
 });
