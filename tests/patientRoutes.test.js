@@ -23,17 +23,18 @@ const testPatient = {
 };
 
 beforeAll(async () => {
-    // Connect to the test database
-    await mongoose.connect(process.env.TEST_MONGODB_URI, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    });
+    if (mongoose.connection.readyState === 0) { // 0 means disconnected
+        await mongoose.connect(process.env.TEST_MONGODB_URI, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
+    }
 });
 
 afterAll(async () => {
-    // Disconnect from the database after tests
-    await mongoose.disconnect();
+    await mongoose.connection.close(); // Close all connections
 });
+
 
 describe('Patient Routes', () => {
     // Positive test cases
