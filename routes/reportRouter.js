@@ -52,7 +52,7 @@ router.post('/add', async (req, res) => {
 });
 
 // Get all appointments
-router.get('/appointments', async (req, res) => {
+router.get('/reports', async (req, res) => {
     try {
         const appointments = await Report.find(); // Use the correct model name
         res.status(200).json(appointments);
